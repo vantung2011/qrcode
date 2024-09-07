@@ -1,0 +1,35 @@
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+@vite(['resources/css/qrcode.css'])
+<div style="width: 500px" id="reader"></div>
+<div id="success-message" class="alert alert-success text-center" style="display: none;"></div>
+<form id="formQrCode" method="post" >
+  @csrf
+    <input type="submit"  id="qrcode">
+    <input type="text" id="qrcodeData" name="qrcodeData"  >
+    {{-- style="visibility: hidden" --}}
+</form>
+</body>
+</html>
+<script>
+$(document).ready(function() {
+    $('#qrcode').click(function(event) {
+        event.preventDefault();
+        var formData = {
+            name: $('#qrcodeData').val(),
+        };
+        $.ajax({
+            url: '/qrcode',
+            type: 'POST',
+            data: formData,
+            dataType: 'json',
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                var errors = xhr.responseJSON.errors;
+            }
+        });
+    });
+});
+</script>

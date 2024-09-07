@@ -1,0 +1,19 @@
+<div id="#user-info"></div>
+<script>
+$.ajax({
+    url: '/users',
+    type: 'GET',
+    success: function(response) {
+        var users = response.users;
+        var html = '';
+        for (var i = 0; i < users.length; i++) {
+            html += '<p>Name: ' + users[i].name + '</p>';
+            html += '<p>Email: ' + users[i].email + '</p>';
+            html += '<p>Username: ' + users[i].username + '</p>';
+            html += '<hr>';
+        }
+        // Thay đổi nội dung của một phần tử HTML bằng ID 'user-info' với chuỗi HTML mới
+        $('#user-info').html(html);
+    }
+});
+</script>
